@@ -95,7 +95,7 @@ public final class ImageCache {
     /**
      * listeners to the cache state
      */
-    private HashSet<ICacheListener> mListeners = new HashSet<ICacheListener>();
+    private HashSet<ICacheListener> mListeners = new HashSet<>();
 
     private static ImageCache sInstance;
 
@@ -142,7 +142,7 @@ public final class ImageCache {
 
             @Override
             protected Void doInBackground(final Void... unused) {
-                // Initialize the disk cahe in a background thread
+                // Initialize the disk cache in a background thread
                 initDiskCache(context);
                 return null;
             }
@@ -479,7 +479,7 @@ public final class ImageCache {
      * Used to fetch the artwork for an album locally from the user's device
      *
      * @param context The {@link Context} to use
-     * @param albumID The ID of the album to find artwork for
+     * @param albumId The ID of the album to find artwork for
      * @return The artwork for an album
      */
     public final Bitmap getArtworkFromFile(final Context context, final long albumId) {
@@ -497,7 +497,7 @@ public final class ImageCache {
                 artwork = BitmapFactory.decodeFileDescriptor(fileDescriptor);
             }
         } catch (final IllegalStateException e) {
-            // Log.e(TAG, "IllegalStateExcetpion - getArtworkFromFile - ", e);
+            // Log.e(TAG, "IllegalStateException - getArtworkFromFile - ", e);
         } catch (final FileNotFoundException e) {
             // Log.e(TAG, "FileNotFoundException - getArtworkFromFile - ", e);
         } catch (final OutOfMemoryError evict) {
@@ -673,8 +673,9 @@ public final class ImageCache {
      */
     public static final File getDiskCacheDir(final Context context, final String uniqueName) {
         // getExternalCacheDir(context) returns null if external storage is not ready
-        final String cachePath = getExternalCacheDir(context) != null
-                                    ? getExternalCacheDir(context).getPath()
+        File externalCacheDir = getExternalCacheDir(context);
+        final String cachePath = externalCacheDir != null
+                                    ? externalCacheDir.getPath()
                                     : context.getCacheDir().getPath();
         return new File(cachePath, uniqueName);
     }
