@@ -29,6 +29,7 @@ LOCAL_OVERRIDES_PACKAGES := Music
 
 LOCAL_PRIVILEGED_MODULE := true
 
+LOCAL_JACK_ENABLED := disabled
 LOCAL_PROGUARD_FLAGS := -include $(LOCAL_PATH)/proguard.cfg
 ifeq ($(TARGET_BUILD_VARIANT),user)
     LOCAL_PROGUARD_ENABLED := obfuscation
